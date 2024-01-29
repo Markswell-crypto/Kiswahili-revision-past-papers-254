@@ -1,52 +1,55 @@
 import React from 'react';
-import { Worker, Viewer, pdfjs } from 'react-file-viewer';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-
-const documentFiles = [
-  'Openner-Pp1.docx',
-  'Opener-Pp2.docx',
-  'Marking-Scheme-Openner-Pp1.docx',
-  'Marking-Scheme-Openner-Pp3.docx',
-];
+import Kcse from './Kcse';
+import Openner from './Openner';
+import Midterm from './Midterm';
+import Endterm from './Endterm';
 
 const Homepage = () => {
-  const getFileType = (fileName) => {
-    const extension = fileName.split('.').pop().toLowerCase();
-    if (extension === 'pdf') return 'pdf';
-    if (extension === 'docx') return 'docx';
-    // Add more supported types as needed
-    return '';
-  };
-
   return (
-    <div className="container mt-3">
+    <div className='container mt-3'>
+    <div className="container-fluid">
       <div className="row">
         {/* Left Section (10%) */}
-        <div className="col-md-2 bg-light ">
-          <ul className="list-group mt-2">
-            <h5 className='text-dark text-center textFit'>CATEGORIES</h5>
-            <li className="list-group-item mb-2"><a href="#kcse">KCSE Pastpapers</a></li>
-            <li className="list-group-item mb-2"><a href="#opener">Opener Past Papers</a></li>
-            <li className="list-group-item mb-2"><a href="#midterm">Midterm Past Papers</a></li>
-            <li className="list-group-item mb-2"><a href="#endterm">Endterm Pastpapers</a></li>
+        <div className="col-md-2 bg-light">
+          <ul className="list-group">
+            <p className='text-primary text-center mt-2'>Categories</p>
+            <li className="list-group-item mt-2 mb-2"><a href="#kcse">KCSE Pastpapers</a></li>
+            <li className="list-group-item mt-2 mb-2"><a href="#opener">Opener PastPapers</a></li>
+            <li className="list-group-item mt-2 mb-2"><a href="#midterm">Midterm PastPapers</a></li>
+            <li className="list-group-item mt-2 mb-2"><a href="#endterm">Endterm Pastpapers</a></li>
           </ul>
         </div>
 
         {/* Wider Section (90%) */}
         <div className="col-md-10">
-          {documentFiles.map((doc, index) => (
-            <div key={index} className="section bg-light mb-2">
-              <h2>{doc.replace('.docx', '')}</h2>
-              <Worker workerUrl={`//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`}>
-                <Viewer fileUrl={`/documents/${doc}`} fileType={getFileType(doc)} />
-              </Worker>
-            </div>
-          ))}
+          {/* First Section (Microsoft Document for KCSE) */}
+          <div id="kcse" className="section bg-light mb-2 mt-2">
+            <h2>KCSE Pastpapers</h2>
+                <Kcse />
+          </div>
+
+          {/* Second Section (Microsoft Document for Opener) */}
+          <div id="opener" className="section bg-light mb-2 mt-2">
+            <h2>Opener Past Papers</h2>
+                <Openner />
+          </div>
+
+          {/* Third Section (Microsoft Document for Midterm) */}
+          <div id="midterm" className="section bg-light mb-2 mt-2">
+            <h2>Midterm Past Papers</h2>
+                <Midterm />
+          </div>
+
+          {/* Fourth Section (Microsoft Document for Endterm) */}
+          <div id="endterm" className="section bg-light mt-2 mb-2">
+            <h2>Endterm Pastpapers</h2>
+                <Endterm />
+          </div>
         </div>
       </div>
     </div>
+    </div>
   );
-};
+}
 
 export default Homepage;
