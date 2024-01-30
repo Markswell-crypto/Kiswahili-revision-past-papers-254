@@ -6,6 +6,7 @@ import Payment from './components/Payment';
 import Contact from './components/Contact';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import Openner from './components/Openner';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/exam-papers" element={<ExamPapers/>} />
           <Route path="/payment" element={<Payment/>} />
           <Route path="/contact" element={<Contact/>} />
+          <Route path="/openner" element={<Openner />} />
         </Routes>
       </div>
       <div className='container'>
