@@ -1,37 +1,74 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import { Worker, Viewer } from '@react-pdf-viewer/core';
-import '@react-pdf-viewer/core/lib/styles/index.css';
+import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import OpennerPp1 from '../assets/documents/Openner-Pp1.docx';
+import OpennerPp2 from '../assets/documents/Opener-Pp2.docx';
+import Payment from './Payment';
+import { Button } from 'react-bootstrap';
 
-function Openner() {
-  const [showModal, setShowModal] = useState(false);
+const DocumentViewer = () => {
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState(null);
 
-  const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleDownloadClick = (document) => {
+    setSelectedDocument(document);
+    setShowPaymentModal(true);
+  };
+
+  const handlePaymentSuccess = () => {
+    // Implement logic to handle successful payment
+    console.log('Payment successful. Downloading document:', selectedDocument);
+    // Implement logic to download the document or provide access
+  };
+
+  const docs = [
+    { 
+      uri: OpennerPp1,
+      fileType: "docx",  
+      fileName: "OpennerPp1.docx"
+    }, 
+    { 
+      uri: OpennerPp2,
+      fileType: "docx",  
+      fileName: "OpennerPp2.docx"
+    }, 
+    { 
+      uri: "https://sample-videos.com/ppt/Sample-PPT-File-500kb.ppt",
+      fileType: "ppt",
+      fileName: "Sample-PPT-File-500kb.ppt"
+    }, 
+    { 
+      uri: "../assets/test.pdf",
+      fileType: "pdf",
+      fileName: "test.pdf"
+    }, 
+  ];
 
   return (
     <div>
-      <Button variant="primary" onClick={handleOpenModal}>
-        Preview Openner Document
-      </Button>
-
-      <Modal show={showModal} onHide={handleCloseModal} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Openner Document Preview</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.worker.min.js">
-            <Viewer file="test.pdf" /> {/* Update the file path */}
-          </Worker>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
+      <DocViewer
+        documents={docs}
+        pluginRenderers={DocViewerRenderers}
+        style={{ height: 700 }}
+      />
+      <div className="mt-3">
+        {docs.map((document, index) => (
+          <Button
+            key={index}
+            onClick={() => handleDownloadClick(document)}
+            className="mb-2 mr-2 bg-transparent border border-light text-primary"
+          >
+            Download {document.fileName}
           </Button>
-        </Modal.Footer>
-      </Modal>
+        ))}
+      </div>
+      {showPaymentModal && (
+        <Payment
+          onClose={() => setShowPaymentModal(false)}
+          onSuccess={handlePaymentSuccess}
+        />
+      )}
     </div>
   );
 }
 
-export default Openner;
+export default DocumentViewer;
