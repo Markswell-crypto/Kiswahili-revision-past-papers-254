@@ -1,7 +1,7 @@
 
 function Endterm() {
   return (
-    <div>Endterm</div>
+    <div>Endterm Kiswahili Revision Papers</div>
   )
 }
 

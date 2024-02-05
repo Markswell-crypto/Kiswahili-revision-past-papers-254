@@ -1,7 +1,7 @@
 
 function Kcse() {
   return (
-    <div>Kcse</div>
+    <div>KCSE Kiswahili Revision Past Papers</div>
   )
 }
 

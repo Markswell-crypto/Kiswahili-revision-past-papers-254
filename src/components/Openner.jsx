@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
-import OpennerPp1 from '../assets/documents/Openner-Pp1.docx';
-import OpennerPp2 from '../assets/documents/Opener-Pp2.docx';
+import OpennerPp1 from '../assets/documents/OpennerPp1.pdf';
+import OpennerPp2 from '../assets/documents/OpennerPp2.pdf';
 import Payment from './Payment';
 import { Button } from 'react-bootstrap';
 
@@ -23,28 +23,19 @@ const DocumentViewer = () => {
   const docs = [
     { 
       uri: OpennerPp1,
-      fileType: "docx",  
-      fileName: "OpennerPp1.docx"
+      fileType: "pdf",  
+      fileName: "OpennerPp1.pdf"
     }, 
     { 
       uri: OpennerPp2,
-      fileType: "docx",  
-      fileName: "OpennerPp2.docx"
-    }, 
-    { 
-      uri: "https://sample-videos.com/ppt/Sample-PPT-File-500kb.ppt",
-      fileType: "ppt",
-      fileName: "Sample-PPT-File-500kb.ppt"
-    }, 
-    { 
-      uri: "../assets/test.pdf",
-      fileType: "pdf",
-      fileName: "test.pdf"
-    }, 
+      fileType: "pdf",  
+      fileName: "OpennerPp2.pdf"
+    } 
   ];
 
   return (
     <div>
+      Openner Kiswahili Revision Papers
       <DocViewer
         documents={docs}
         pluginRenderers={DocViewerRenderers}
