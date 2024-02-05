@@ -2,6 +2,8 @@ import { useState } from 'react';
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import OpennerPp1 from '../assets/documents/OpennerPp1.pdf';
 import OpennerPp2 from '../assets/documents/OpennerPp2.pdf';
+import MarkingSchemePp1 from '../assets/documents/MarkingSchemePp1.pdf';
+import MarkingSchemePp2 from '../assets/documents/MarkingSchemePp2.pdf';
 import Payment from './Payment';
 import { Button } from 'react-bootstrap';
 
@@ -11,13 +13,20 @@ const DocumentViewer = () => {
 
   const handleDownloadClick = (document) => {
     setSelectedDocument(document);
-    setShowPaymentModal(true);
+    if (document.isMarkingScheme) {
+      // For marking schemes, trigger the payment modal
+      setShowPaymentModal(true);
+    } else {
+      // For regular documents, implement logic to handle download or access
+      console.log('Downloading regular document:', document);
+      // Implement logic to download the document or provide access
+    }
   };
 
-  const handlePaymentSuccess = () => {
-    // Implement logic to handle successful payment
-    console.log('Payment successful. Downloading document:', selectedDocument);
-    // Implement logic to download the document or provide access
+  const handleMarkingSchemeDownload = () => {
+    // Implement logic to handle successful payment for marking scheme
+    console.log('Payment successful. Downloading marking scheme:', selectedDocument);
+    // Implement logic to download the marking scheme or provide access
   };
 
   const docs = [
@@ -33,6 +42,21 @@ const DocumentViewer = () => {
     } 
   ];
 
+  const marking_Scheme = [
+    { 
+      uri: MarkingSchemePp1,
+      fileType: "pdf",  
+      fileName: "MarkingSchemePp1.pdf",
+      isMarkingScheme: true, // Marking scheme indicator
+    }, 
+    { 
+      uri: MarkingSchemePp2,
+      fileType: "pdf",  
+      fileName: "MarkingSchemePp2.pdf",
+      isMarkingScheme: true, // Marking scheme indicator
+    } 
+  ];
+
   return (
     <div>
       Openner Kiswahili Revision Papers
@@ -41,8 +65,19 @@ const DocumentViewer = () => {
         pluginRenderers={DocViewerRenderers}
         style={{ height: 700 }}
       />
-      <div className="mt-3">
+      {/* <div className="mt-3">
         {docs.map((document, index) => (
+          <Button
+            key={index}
+            onClick={() => handleDownloadClick(document)}
+            className="mb-2 mr-2 bg-transparent border border-light text-primary"
+          >
+            Download {document.fileName}
+          </Button>
+        ))}
+      </div> */}
+      <div className="mt-3">
+        {marking_Scheme.map((document, index) => (
           <Button
             key={index}
             onClick={() => handleDownloadClick(document)}
@@ -55,7 +90,7 @@ const DocumentViewer = () => {
       {showPaymentModal && (
         <Payment
           onClose={() => setShowPaymentModal(false)}
-          onSuccess={handlePaymentSuccess}
+          onSuccess={handleMarkingSchemeDownload} // Handle marking scheme download on payment success
         />
       )}
     </div>

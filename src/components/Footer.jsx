@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from 'react-bootstrap/Image';
 import { Link } from 'react-router-dom';
 import { animateScroll as scroll } from 'react-scroll';

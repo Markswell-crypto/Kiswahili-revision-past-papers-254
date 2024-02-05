@@ -1,4 +1,3 @@
-import React from 'react';
 import Kcse from './Kcse';
 import Openner from './Openner';
 import Midterm from './Midterm';
